@@ -1,9 +1,9 @@
-﻿namespace Asteroids.Standard.Enums
+﻿namespace Asteroids.Standard.Enums;
+
+public enum GameMode
 {
-    public enum GameMode {
-        Prep,
-        Title,
-        Game,
-        Exit
-    };
-}
+    Prep,
+    Title,
+    Game,
+    Exit
+};

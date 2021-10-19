@@ -1,22 +1,21 @@
 ﻿using System.Windows;
 
-namespace Asteroids.Wpf.Core
+namespace Asteroids.Wpf.Core;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    private MainWindow mainWindow;
+
+    protected override void OnStartup(StartupEventArgs e)
     {
-        private MainWindow mainWindow;
+        base.OnStartup(e);
+        mainWindow = new MainWindow();
+        mainWindow.Show();
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-            mainWindow = new MainWindow();
-            mainWindow.Show();
-
-        }
-        protected override void OnExit(ExitEventArgs e)
-        {
-            mainWindow.Dispose();
-            base.OnExit(e);
-        }
+    }
+    protected override void OnExit(ExitEventArgs e)
+    {
+        mainWindow.Dispose();
+        base.OnExit(e);
     }
 }

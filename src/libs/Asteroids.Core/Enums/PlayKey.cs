@@ -1,12 +1,12 @@
-﻿namespace Asteroids.Standard.Enums
+﻿namespace Asteroids.Standard.Enums;
+
+public enum PlayKey
 {
-    public enum PlayKey {
-        Escape,
-        Left,
-        Right,
-        Up,
-        Down,
-        Space,
-        P
-    }
+    Escape,
+    Left,
+    Right,
+    Up,
+    Down,
+    Space,
+    P
 }
