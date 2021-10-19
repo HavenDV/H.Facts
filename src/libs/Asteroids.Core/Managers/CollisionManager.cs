@@ -4,7 +4,7 @@ using Asteroids.Standard.Enums;
 using Asteroids.Standard.Helpers;
 using Asteroids.Standard.Screen;
 using static Asteroids.Standard.Managers.CacheManager;
-using static Asteroids.Standard.Sounds.ActionSounds;
+using static Asteroids.Core.Sounds.ActionSounds;
 
 namespace Asteroids.Standard.Managers;
 

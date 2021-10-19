@@ -3,7 +3,7 @@ using Asteroids.Standard.Components;
 using Asteroids.Standard.Enums;
 using Asteroids.Standard.Helpers;
 using Asteroids.Standard.Managers;
-using static Asteroids.Standard.Sounds.ActionSounds;
+using static Asteroids.Core.Sounds.ActionSounds;
 
 namespace Asteroids.Standard.Screen;
 
@@ -21,7 +21,7 @@ public class Game
     private readonly ScoreManager _score;
     private readonly TextManager _textDraw;
 
-    private readonly CacheManager _cache;
+    internal readonly CacheManager _cache;
     private readonly CollisionManager _collisionManager;
     private readonly DrawingManager _drawingManager;
 

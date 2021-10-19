@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Asteroids.Standard.Enums;
 
-namespace Asteroids.Standard.Sounds;
+namespace Asteroids.Core.Sounds;
 
 /// <summary>
 /// Collection of <see cref="ActionSound"/> <see cref="Stream"/>s.
@@ -12,7 +12,7 @@ internal class ActionSounds
 
     static ActionSounds()
     {
-        var asmName = $"{nameof(Asteroids)}.{nameof(Standard)}";
+        var asmName = $"{nameof(Asteroids)}.{nameof(Core)}";
         var dirName = $"{asmName}.{SoundDir}";
         var assembly = AppDomain
             .CurrentDomain

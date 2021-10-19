@@ -1,5 +1,5 @@
 using Asteroids.Standard.Enums;
-using static Asteroids.Standard.Sounds.ActionSounds;
+using static Asteroids.Core.Sounds.ActionSounds;
 
 namespace Asteroids.Standard.Managers;
 
