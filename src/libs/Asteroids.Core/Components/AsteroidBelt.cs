@@ -2,9 +2,6 @@ using Asteroids.Standard.Helpers;
 
 namespace Asteroids.Standard.Components;
 
-/// <summary>
-/// Summary description for AsteroidBelt.
-/// </summary>
 internal class AsteroidBelt
 {
     private readonly object _updateAsteroidsLock;

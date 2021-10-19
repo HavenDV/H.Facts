@@ -1,10 +1,10 @@
 ﻿namespace H.Facts;
 
-internal class Sensor
+public class Sensor
 {
-    public event EventHandler<Fact> FactReceived;
+    public event EventHandler<Fact>? FactReceived;
 
-    protected void OnFactReceived(Fact value)
+    public void OnFactReceived(Fact value)
     {
         FactReceived?.Invoke(this, value);
     }

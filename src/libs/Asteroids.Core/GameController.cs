@@ -5,30 +5,36 @@ using Asteroids.Standard.Helpers;
 using Asteroids.Standard.Interfaces;
 using Asteroids.Standard.Managers;
 using Asteroids.Standard.Screen;
+using H.Facts;
 
 namespace Asteroids.Standard;
 
 /// <summary>
 /// Asteroids game engine that will calculate the lines and polygons and react to control key events.
 /// </summary>
-
 public class GameController : IDisposable, IGameController
 {
+    #region Properties
+
+    private Brain Brain { get; } = new();
+    private Sensor RadarSensor { get; } = new();
+
+    #endregion
+
     #region Constructor
 
-    /// <summary>
-    /// Creates a new instance of <see cref="GameController"/>.
-    /// </summary>
     public GameController()
     {
         GameStatus = GameMode.Prep;
         _lastDrawn = false;
-        Sounds.ActionSounds.SoundTriggered += PlaySound;
+        Core.Sounds.ActionSounds.SoundTriggered += PlaySound;
 
         _screenCanvas = new ScreenCanvas(new Rectangle());
         _textManager = new TextManager(_screenCanvas);
         _scoreManager = new ScoreManager(_textManager);
         _currentTitle = new TitleScreen(_textManager, _screenCanvas);
+
+        Brain.AddSensor(RadarSensor);
     }
 
     public async Task Initialize(IGraphicContainer container, Rectangle frameRectangle)
@@ -84,7 +90,7 @@ public class GameController : IDisposable, IGameController
     /// <summary>
     /// Collection (read-only) of <see cref="ActionSounds"/> used by the game engine and associated WAV <see cref="Stream"/>s.
     /// </summary>
-    public IDictionary<ActionSound, Stream> ActionSounds => Sounds.ActionSounds.SoundDictionary;
+    public IDictionary<ActionSound, Stream> ActionSounds => Core.Sounds.ActionSounds.SoundDictionary;
 
     #endregion
 
@@ -263,6 +269,25 @@ public class GameController : IDisposable, IGameController
 
         _game.Thrust(_upPressed);
         _game.DrawScreen();
+
+        foreach (var asteroid in _game._cache.Asteroids)
+        {
+            var x = asteroid.Location.X;
+            var y = asteroid.Location.Y;
+
+            RadarSensor.OnFactReceived(new Fact("Asteroid")
+            {
+                DoubleProperties =
+                {
+                    new("X", x),
+                    new("Y", y),
+                },
+                DateTimeProperties =
+                {
+                    new("Now", DateTime.Now),
+                }
+            });
+        }
 
         // If the game is over, display the title screen
         if (_game.IsDone())
