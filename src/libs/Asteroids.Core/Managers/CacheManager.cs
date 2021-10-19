@@ -15,7 +15,7 @@ internal class CacheManager
     /// <summary>
     /// Create a new instance of <see cref="CacheManager"/>.
     /// </summary>
-    public CacheManager(ScoreManager score, Ship ship, AsteroidBelt belt, IList<Bullet> bullets)
+    public CacheManager(ScoreManager score, Ship? ship, AsteroidBelt belt, IList<Bullet> bullets)
     {
         Score = score;
         Ship = ship;
@@ -46,15 +46,15 @@ internal class CacheManager
     public ScoreManager Score { get; }
 
     //Live and die
-    public Ship Ship { get; private set; }
-    public Saucer Saucer { get; private set; }
+    public Ship? Ship { get; private set; }
+    public Saucer? Saucer { get; private set; }
     public AsteroidBelt Belt { get; private set; }
 
     //Optimize to avoid repeat traversal
-    public IList<CachedObject<Asteroid>> Asteroids { get; private set; }
-    public IList<Point> SaucerPoints { get; private set; }
-    public IList<Point> MissilePoints { get; private set; }
-    public IList<Point> ShipPoints { get; private set; }
+    public IList<CachedObject<Asteroid>> Asteroids { get; private set; } = new List<CachedObject<Asteroid>>();
+    public IList<Point>? SaucerPoints { get; private set; }
+    public IList<Point>? MissilePoints { get; private set; }
+    public IList<Point>? ShipPoints { get; private set; }
 
     #endregion
 
@@ -91,7 +91,7 @@ internal class CacheManager
     /// <summary>
     /// Updates the Ship cache.
     /// </summary>
-    public void UpdateShip(Ship ship)
+    public void UpdateShip(Ship? ship)
     {
         Ship = ship;
 
@@ -103,7 +103,7 @@ internal class CacheManager
     /// <summary>
     /// Updates both the saucer and missile cache.
     /// </summary>
-    public void UpdateSaucer(Saucer saucer)
+    public void UpdateSaucer(Saucer? saucer)
     {
         Saucer = saucer;
 
@@ -121,7 +121,7 @@ internal class CacheManager
     /// <summary>
     /// Updates the missile cache.
     /// </summary>
-    public void UpdateMissile(Missile missile)
+    public void UpdateMissile(Missile? missile)
     {
         MissilePoints = missile?.IsAlive == true
             ? missile.GetPoints()
@@ -135,7 +135,7 @@ internal class CacheManager
     {
         Belt = belt;
 
-        Asteroids = Belt?
+        Asteroids = Belt
             .GetAsteroids()
             .Select(a => new CachedObject<Asteroid>(a))
             .ToList();

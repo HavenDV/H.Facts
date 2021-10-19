@@ -30,7 +30,7 @@ internal class Saucer : ScreenObjectBase
     /// <summary>
     /// Guided <see cref="Missile"/> for targeting a <see cref="Ship"/>.
     /// </summary>
-    public Missile Missile { get; private set; }
+    public Missile? Missile { get; private set; }
 
     /// <summary>
     /// Populates the base template collection of points to draw.
@@ -76,12 +76,12 @@ internal class Saucer : ScreenObjectBase
                 Missile = new Missile(this);
 
             //move towards the target
-            Missile.Move(target.Value);
+            Missile?.Move(target.Value);
         }
         else if (isMissile)
         {
             //No target but the missile is alive so move forward
-            Missile.Move();
+            Missile?.Move();
         }
     }
 

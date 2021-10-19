@@ -8,5 +8,5 @@ public class GraphicPolygon : IGraphicPolygon
 {
     public DrawColor Color { get; set; }
 
-    public IList<Point> Points { get; set; }
+    public IList<Point> Points { get; set; } = new List<Point>();
 }

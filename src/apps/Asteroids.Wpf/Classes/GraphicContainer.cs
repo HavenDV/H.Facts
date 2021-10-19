@@ -14,8 +14,8 @@ namespace Asteroids.Wpf.Core.Classes;
 public class GraphicContainer : Image, IGraphicContainer, IDisposable
 {
     private readonly Dispatcher _mainDispatcher = Dispatcher.CurrentDispatcher;
-    private IDictionary<DrawColor, Color> _colorCache;
-    private WriteableBitmap _bitmap;
+    private IDictionary<DrawColor, Color> _colorCache = new Dictionary<DrawColor, Color>();
+    private WriteableBitmap? _bitmap;
 
     /// <summary>
     /// Creates a new instance of <see cref="GraphicContainer"/>.

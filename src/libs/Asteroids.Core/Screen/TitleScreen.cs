@@ -19,7 +19,7 @@ public class TitleScreen
     private const string Copyright1 = "CREATED BY HOWARD UMAN";
     private const string Copyright2 = "PORTED BY ERNIE SALAZAR";
 
-    private string _title;
+    private string _title = string.Empty;
     private int _letterSize;
     private int _increment;
 

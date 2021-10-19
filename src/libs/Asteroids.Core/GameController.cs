@@ -57,7 +57,7 @@ public class GameController : IDisposable, IGameController
 
     private const double TimerInterval = 1000 / ScreenCanvas.FramesPerSecond;
 
-    private IGraphicContainer _container;
+    private IGraphicContainer? _container;
     private Rectangle _frameRectangle;
 
     private bool _lastDrawn;
@@ -67,7 +67,7 @@ public class GameController : IDisposable, IGameController
     private readonly ScreenCanvas _screenCanvas;
 
     private TitleScreen _currentTitle;
-    private Game _game;
+    private Game? _game;
 
     private bool _leftPressed;
     private bool _rightPressed;
@@ -76,7 +76,7 @@ public class GameController : IDisposable, IGameController
     private bool _shootingLastPressed;
     private bool _pauseLastPressed;
 
-    private Timer _timerFlip;
+    private Timer? _timerFlip;
 
     #endregion
 
@@ -99,7 +99,7 @@ public class GameController : IDisposable, IGameController
     /// <summary>
     /// Fires when the game calculation results in a sound stored in <see cref="ActionSounds"/> to be played by UI.
     /// </summary>
-    public event EventHandler<ActionSound> SoundPlayed;
+    public event EventHandler<ActionSound>? SoundPlayed;
 
     #endregion
 
@@ -189,21 +189,21 @@ public class GameController : IDisposable, IGameController
             else if (!_hyperspaceLastPressed && key == PlayKey.Down)
             {
                 _hyperspaceLastPressed = true;
-                _game.Hyperspace();
+                _game?.Hyperspace();
             }
 
             // Shooting (can't be held down)
             else if (!_shootingLastPressed && key == PlayKey.Space)
             {
                 _shootingLastPressed = true;
-                _game.Shoot();
+                _game?.Shoot();
             }
 
             // Pause can't be held down)
             else if (!_pauseLastPressed && key == PlayKey.P)
             {
                 _pauseLastPressed = true;
-                _game.Pause();
+                _game?.Pause();
             }
         }
     }
@@ -246,7 +246,7 @@ public class GameController : IDisposable, IGameController
     private async Task Repaint()
     {
         // Only allow the canvas to be drawn once if there is an invalidate, it's ok, the other canvas will soon be drawn
-        if (_lastDrawn)
+        if (_container == null || _lastDrawn)
             return;
 
         _lastDrawn = true;
@@ -261,6 +261,11 @@ public class GameController : IDisposable, IGameController
 
     private bool PlayGame()
     {
+        if (_game is null)
+        {
+            return false;
+        }
+
         if (_leftPressed)
             _game.Left();
 

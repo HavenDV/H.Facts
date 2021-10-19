@@ -59,7 +59,9 @@ internal class DrawingManager
     /// </summary>
     private void DrawShip()
     {
-        if (!_cache.Ship.IsAlive)
+        if (_cache.ShipPoints is null ||
+            _cache.Ship is null ||
+            !_cache.Ship.IsAlive)
             return;
 
         DrawPolygon(_cache.ShipPoints);
@@ -98,11 +100,12 @@ internal class DrawingManager
     /// </summary>
     private void DrawSaucer()
     {
-        if (_cache.Saucer?.IsAlive != true)
+        if (_cache.Saucer is null ||
+            !_cache.Saucer.IsAlive)
             return;
 
         //Draw the saucer
-        DrawPolygon(_cache.SaucerPoints);
+        DrawPolygon(_cache.SaucerPoints ?? throw new InvalidOperationException());
 
         //Draw its missile
         if (_cache.MissilePoints?.Any() != true)
@@ -124,7 +127,7 @@ internal class DrawingManager
 
         // random thrust effect
         var size = RandomizeHelper.Random.Next(50) + 50;
-        var radians = _cache.Saucer.Missile.GetRadians();
+        var radians = _cache.Saucer.Missile?.GetRadians() ?? 0;
 
         thrustPoints.Add(new Point(
             (pt1.X + pt2.X) / 2 + (int)(size * Math.Sin(radians)),

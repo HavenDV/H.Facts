@@ -4,7 +4,7 @@ namespace Asteroids.Wpf.Core;
 
 public partial class App : Application
 {
-    private MainWindow mainWindow;
+    private MainWindow? mainWindow;
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -15,7 +15,7 @@ public partial class App : Application
     }
     protected override void OnExit(ExitEventArgs e)
     {
-        mainWindow.Dispose();
+        mainWindow?.Dispose();
         base.OnExit(e);
     }
 }

@@ -112,6 +112,11 @@ public class Game
             // get a new one - or end the game
             var noExplosions = _cache.ExplosionCount() == 0;
 
+            if (_cache.Ship == null)
+            {
+                return;
+            }
+
             if (!_cache.Ship.IsAlive && noExplosions)
             {
                 if (!_score.HasReserveShips())
@@ -173,7 +178,8 @@ public class Game
             }
 
             // Check ship for collisions
-            if (_cache.Ship.IsAlive)
+            if (_cache.Ship.IsAlive &&
+                _cache.ShipPoints is not null)
             {
                 var shipPoints = _cache.ShipPoints;
 
@@ -224,7 +230,7 @@ public class Game
     /// <summary>
     /// Indicates if <see cref="CacheManager.Ship"/> is considered active (alive and not paused).
     /// </summary>
-    private bool IsShipActive => !_paused && _cache.Ship.IsAlive;
+    private bool IsShipActive => !_paused && _cache.Ship is not null && _cache.Ship.IsAlive;
 
     /// <summary>
     /// Moves the <see cref="Ship"/> if active.
@@ -235,10 +241,10 @@ public class Game
         if (!IsShipActive)
             return;
 
-        _cache.Ship.DecayThrust();
+        _cache.Ship?.DecayThrust();
 
         if (showThrust)
-            _cache.Ship.Thrust();
+            _cache.Ship?.Thrust();
     }
 
     /// <summary>
@@ -247,7 +253,7 @@ public class Game
     public void Left()
     {
         if (IsShipActive)
-            _cache.Ship.RotateLeft();
+            _cache.Ship?.RotateLeft();
     }
 
     /// <summary>
@@ -256,7 +262,7 @@ public class Game
     public void Right()
     {
         if (IsShipActive)
-            _cache.Ship.RotateRight();
+            _cache.Ship?.RotateRight();
     }
 
     /// <summary>
@@ -267,7 +273,7 @@ public class Game
         if (!IsShipActive)
             return;
 
-        if (!_cache.Ship.Hyperspace())
+        if (_cache.Ship is not null && !_cache.Ship.Hyperspace())
             _cache.AddExplosions(_cache.Ship.Explode());
     }
 
@@ -279,7 +285,7 @@ public class Game
         if (_paused)
             return;
 
-        if (_cache.Ship.IsAlive)
+        if (_cache.Ship is not null && _cache.Ship.IsAlive)
         {
             //Fire bullets that are not already moving
             foreach (var bullet in _cache.GetBulletsAvailable())

@@ -167,8 +167,11 @@ internal class CollisionManager
         {
             _cache.Score.AddScore(Saucer.KillScore);
 
-            foreach (var explosion in _cache.Saucer.Explode())
-                _cache.AddExplosion(explosion);
+            if (_cache.Saucer is not null)
+            {
+                foreach (var explosion in _cache.Saucer.Explode())
+                    _cache.AddExplosion(explosion);
+            }
         }
 
         return saucerHit;
@@ -191,7 +194,7 @@ internal class CollisionManager
 
         var missileHit = polygonPoints.ContainsAnyPoint(_cache.MissilePoints);
 
-        if (missileHit)
+        if (missileHit && _cache.Saucer?.Missile is not null)
             foreach (var explosion in _cache.Saucer.Missile.Explode())
                 _cache.AddExplosion(explosion);
 

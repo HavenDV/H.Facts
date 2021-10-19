@@ -5,7 +5,7 @@ namespace Asteroids.Standard.Components;
 internal class AsteroidBelt
 {
     private readonly object _updateAsteroidsLock;
-    private IList<Asteroid> _asteroids;
+    private IList<Asteroid> _asteroids = new List<Asteroid>();
 
     public AsteroidBelt(int iNumAsteroids) : this(iNumAsteroids, Asteroid.AsteroidSize.Large)
     {
