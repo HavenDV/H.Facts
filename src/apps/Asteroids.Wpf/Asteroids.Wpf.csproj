@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Asteroids.Standard\Asteroids.Standard.csproj" />
+    <ProjectReference Include="..\..\libs\Asteroids.Core\Asteroids.Core.csproj" />
   </ItemGroup>
 
 </Project>
