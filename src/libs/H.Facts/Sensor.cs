@@ -1,11 +1,16 @@
-﻿namespace H.Facts;
+﻿using EventGenerator;
 
-public class Sensor
+namespace H.Facts;
+
+[Event<Fact>("FactReceived", PropertyNames = new[] {"Fact"})]
+public partial class Sensor
 {
-    public event EventHandler<Fact>? FactReceived;
+    public IReadOnlyCollection<Api> Apis = new List<Api>();
+}
 
-    public void OnFactReceived(Fact value)
-    {
-        FactReceived?.Invoke(this, value);
-    }
+public class Api
+{
+    public object? Input;
+    public object? Output;
+    public string Description { get; set; } = string.Empty;
 }

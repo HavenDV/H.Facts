@@ -23,9 +23,9 @@ public class Brain
 
     #region Event Handlers
 
-    private void Sensor_FactReceived(object sender, Fact fact)
+    private void Sensor_FactReceived(object sender, Sensor.FactReceivedEventArgs args)
     {
-        Memory.Facts.Add(fact);
+        Memory.Facts.Add(args.Fact);
     }
 
     #endregion
